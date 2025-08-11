@@ -2,6 +2,8 @@
 
 This repository presents a Python-based lane detection and vehicle positioning system leveraging advanced computer vision techniques. The system accurately identifies lane markings, computes their curvature, and determines the vehicle's lateral position relative to the lane center. Designed for versatility, it supports processing of both real-time video streams and prerecorded footage, making it suitable for various automotive and research applications.
 
+https://github.com/user-attachments/assets/30065311-0b00-48e6-9cc9-12f1558186d6
+
 ---
 ## Features
 - **Binary Thresholding**: Applies multiple thresholds (color, gradient) to create a binary representation of the image.
