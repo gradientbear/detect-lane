@@ -1,6 +1,6 @@
-# Advanced Lane Detection Based on Digital Image Processing
+# Detect Lane
 
-This repository provides a Python-based implementation of a lane detection and vehicle positioning System. It utilizes computer vision techniques to detect lane lines on a road, measure their curvature, and calculate the vehicle's position relative to the center of the lane. The system is capable of processing real-time video streams or prerecorded videos.
+This repository presents a Python-based lane detection and vehicle positioning system leveraging advanced computer vision techniques. The system accurately identifies lane markings, computes their curvature, and determines the vehicle's lateral position relative to the lane center. Designed for versatility, it supports processing of both real-time video streams and prerecorded footage, making it suitable for various automotive and research applications.
 
 ---
 ## Features
