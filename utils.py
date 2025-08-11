@@ -33,7 +33,7 @@ def draw_lane_info(img, ploty, left_fitx, right_fitx, left_curverad, right_curve
     """Overlay lane information onto the original image."""
     binary_warped, M_inv = warp_perspective(img)
     # Create blank image for lane visualization
-    warp_zero = np.zeros_like(binary_warped, dtype=np.uint8)
+    warp_zero = np.zeros(binary_warped.shape[:2], dtype=np.uint8)
     color_warp = np.dstack((warp_zero, warp_zero, warp_zero))
 
     # Points for lane polygon

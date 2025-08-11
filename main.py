@@ -1,6 +1,6 @@
 from lane_detection import fit_polynomial, find_lane_pixels, find_lane_pixels_from_prev_poly
 from measurements import measure_curvature, measure_vehicle_position
-from perspective import warp_image 
+from perspective import warp_perspective 
 from thresholds import binary_threshold
 from utils import draw_lane_info, draw_lane_lines
 import cv2
@@ -11,10 +11,11 @@ left_fit_hist = []
 right_fit_hist = []
 
 def lane_finding_pipeline(image, draw_info = True, draw_lines = False):
+    global left_fit_hist, right_fit_hist
     """Main pipeline for lane finding."""
     # Binary thresholding and warping
     binary_thresh = binary_threshold(image)
-    binary_warped, M_inv = warp_image(binary_thresh)
+    binary_warped, M_inv = warp_perspective(binary_thresh)
 
     # Fit lane lines
     if len(left_fit_hist) == 0:
@@ -29,8 +30,16 @@ def lane_finding_pipeline(image, draw_info = True, draw_lines = False):
     left_fit, right_fit, left_fitx, right_fitx, ploty = fit_polynomial(binary_warped, leftx, lefty, rightx, righty)
 
     # Update history
-    left_fit_hist = np.vstack([left_fit_hist, left_fit])[-10:]
-    right_fit_hist = np.vstack([right_fit_hist, right_fit])[-10:]
+
+    if left_fit_hist == []:  # First run
+        left_fit_hist = np.array([left_fit])
+    else:
+        left_fit_hist = np.vstack([left_fit_hist, left_fit])[-10:]
+    if right_fit_hist == []:  # First run
+        right_fit_hist = np.array([right_fit])
+    else:
+        right_fit_hist = np.vstack([right_fit_hist, right_fit])[-10:]
+
 
     # Calculate curvature and vehicle position
     left_curverad, right_curverad = measure_curvature(ploty, left_fitx, right_fitx)
@@ -69,7 +78,7 @@ if __name__ == "__main__":
         cv2.destroyAllWindows()
     else:
         # Load test Video
-        cap = cv2.VideoCapture('project_video.mp4')
+        cap = cv2.VideoCapture('test_video.mp4')
         while True:
             ret, frame = cap.read()
             if not ret:
